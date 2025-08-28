@@ -64,6 +64,16 @@ function M.add_file()
 	end
 end
 
+function M.remove_file(i)
+	local removed = table.remove(state.marks, i)
+
+	if removed == nil then
+		vim.notify("miniharp: no mark at " .. i)
+	else
+		vim.notify("miniharp: removed mark " .. i)
+	end
+end
+
 ---Toggle a file mark for current buffer.
 function M.toggle_file()
 	local file = utils.bufname()
@@ -91,30 +101,6 @@ function M.update_last_for_file(file, l, c)
 	if i then
 		m.lnum, m.col = l, c
 	end
-end
-
-function M.next()
-	if #state.marks == 0 then
-		return vim.notify("miniharp: no file marks yet", vim.log.levels.WARN)
-	end
-
-	local i = state.idx + 1
-	if i > #state.marks then
-		i = 1
-	end
-	M.jump_to(i)
-end
-
-function M.prev()
-	if #state.marks == 0 then
-		return vim.notify("miniharp: no file marks yet", vim.log.levels.WARN)
-	end
-
-	local i = state.idx - 1
-	if i < 1 then
-		i = #state.marks
-	end
-	M.jump_to(i)
 end
 
 ---@return MiniharpMark[]
