@@ -106,8 +106,9 @@ function M.restore()
 end
 
 ---@class MiniharpOpts
----@field autoload? boolean  @Load saved marks for this cwd on startup (default: true)
----@field autosave? boolean  @Save marks for this cwd on exit (default: true)
+---@field autoload? boolean		@Load saved marks for this cwd on startup (default: true)
+---@field autosave? boolean		@Save marks for this cwd on exit (default: true)
+---@field silent? boolean		@Don't send notifications for actions (default: false)
 
 ---Setup miniharp.
 ---@param opts? MiniharpOpts
@@ -118,6 +119,9 @@ function M.setup(opts)
 
 	local autoload = opts.autoload ~= false
 	local autosave = opts.autosave ~= false
+	local silent = opts.silent == true
+
+	state.silent = silent
 
 	if autoload then
 		local ok, err = storage.load()

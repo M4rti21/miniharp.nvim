@@ -1,4 +1,4 @@
-local utils = require('miniharp.utils')
+local utils = require("miniharp.utils")
 
 ---@class MiniharpMark
 ---@field file string -- absolute file path
@@ -10,14 +10,16 @@ local utils = require('miniharp.utils')
 ---@field cwd string
 ---@field idx integer
 ---@field augroup? integer
+---@field silent boolean
 
 local M ---@type MiniharpState
 
 M = {
-    marks = {},
-    cwd = utils.norm(vim.fn.getcwd()),
-    idx = 0,
-    augroup = nil
+	silent = false,
+	marks = {},
+	cwd = utils.norm(vim.fn.getcwd()),
+	idx = 0,
+	augroup = nil,
 }
 
 return M

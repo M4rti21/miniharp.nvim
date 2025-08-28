@@ -57,10 +57,14 @@ function M.add_file()
 		state.marks[i].lnum, state.marks[i].col = l, c
 		state.idx = i
 
-		vim.notify(("miniharp: updated %s → %d:%d (#%d)"):format(utils.pretty(file), l, c + 1, i))
+		if state.silent == true then
+			vim.notify(("miniharp: updated %s → %d:%d (#%d)"):format(utils.pretty(file), l, c + 1, i))
+		end
 	else
 		add_mark({ file = file, lnum = l, col = c })
-		vim.notify(("miniharp: added %s (#%d)"):format(utils.pretty(file), state.idx))
+		if state.silent == true then
+			vim.notify(("miniharp: added %s (#%d)"):format(utils.pretty(file), state.idx))
+		end
 	end
 end
 
@@ -70,7 +74,9 @@ function M.remove_file(i)
 	if removed == nil then
 		vim.notify("miniharp: no mark at " .. i)
 	else
-		vim.notify("miniharp: removed mark " .. i)
+		if state.silent == true then
+			vim.notify("miniharp: removed mark " .. i)
+		end
 	end
 end
 
@@ -86,7 +92,9 @@ function M.toggle_file()
 			state.idx = #state.marks
 		end
 
-		vim.notify("miniharp: removed file mark")
+		if state.silent == true then
+			vim.notify("miniharp: removed file mark")
+		end
 	else
 		M.add_file()
 	end
