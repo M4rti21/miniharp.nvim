@@ -108,6 +108,15 @@ function M.list()
 	return vim.deepcopy(state.marks)
 end
 
+function M.show_list()
+	local marks = M.list()
+	local str = ""
+	for i, mark in ipairs(marks) do
+		str = str .. "\n" .. i .. ": " .. mark.file
+	end
+	vim.notify("Marks:" .. str, vim.log.levels.INFO)
+end
+
 function M.clear()
 	state.marks = {}
 	state.idx = 0
